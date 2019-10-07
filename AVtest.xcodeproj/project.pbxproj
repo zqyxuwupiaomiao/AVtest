@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		A4387BCD23497EC900046A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BCC23497EC900046A9E /* AppDelegate.swift */; };
-		A4387BCF23497EC900046A9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BCE23497EC900046A9E /* SceneDelegate.swift */; };
 		A4387BD123497EC900046A9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BD023497EC900046A9E /* ViewController.swift */; };
 		A4387BD423497EC900046A9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4387BD223497EC900046A9E /* Main.storyboard */; };
 		A4387BD623497ECA00046A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4387BD523497ECA00046A9E /* Assets.xcassets */; };
 		A4387BD923497ECA00046A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4387BD723497ECA00046A9E /* LaunchScreen.storyboard */; };
 		A4387BE423497ECA00046A9E /* AVtestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BE323497ECA00046A9E /* AVtestTests.swift */; };
 		A4387BEF23497ECA00046A9E /* AVtestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BEE23497ECA00046A9E /* AVtestUITests.swift */; };
+		A4387BFD2349833C00046A9E /* AVManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BFC2349833C00046A9E /* AVManager.swift */; };
+		A4387C3B2349C4E600046A9E /* RecordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387C3A2349C4E600046A9E /* RecordEncoder.swift */; };
+		A4387C3E2349F43800046A9E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4387C3D2349F43800046A9E /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +39,6 @@
 /* Begin PBXFileReference section */
 		A4387BC923497EC900046A9E /* AVtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVtest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4387BCC23497EC900046A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A4387BCE23497EC900046A9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A4387BD023497EC900046A9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A4387BD323497EC900046A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4387BD523497ECA00046A9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +50,9 @@
 		A4387BEA23497ECA00046A9E /* AVtestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVtestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4387BEE23497ECA00046A9E /* AVtestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVtestUITests.swift; sourceTree = "<group>"; };
 		A4387BF023497ECA00046A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4387BFC2349833C00046A9E /* AVManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVManager.swift; sourceTree = "<group>"; };
+		A4387C3A2349C4E600046A9E /* RecordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEncoder.swift; sourceTree = "<group>"; };
+		A4387C3D2349F43800046A9E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4387C3E2349F43800046A9E /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,7 @@
 				A4387BE223497ECA00046A9E /* AVtestTests */,
 				A4387BED23497ECA00046A9E /* AVtestUITests */,
 				A4387BCA23497EC900046A9E /* Products */,
+				A4387C3C2349F43700046A9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,8 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				A4387BCC23497EC900046A9E /* AppDelegate.swift */,
-				A4387BCE23497EC900046A9E /* SceneDelegate.swift */,
 				A4387BD023497EC900046A9E /* ViewController.swift */,
+				A4387BFC2349833C00046A9E /* AVManager.swift */,
+				A4387C3A2349C4E600046A9E /* RecordEncoder.swift */,
 				A4387BD223497EC900046A9E /* Main.storyboard */,
 				A4387BD523497ECA00046A9E /* Assets.xcassets */,
 				A4387BD723497ECA00046A9E /* LaunchScreen.storyboard */,
@@ -126,6 +133,14 @@
 				A4387BF023497ECA00046A9E /* Info.plist */,
 			);
 			path = AVtestUITests;
+			sourceTree = "<group>";
+		};
+		A4387C3C2349F43700046A9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A4387C3D2349F43800046A9E /* MobileCoreServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4387BFD2349833C00046A9E /* AVManager.swift in Sources */,
+				A4387C3B2349C4E600046A9E /* RecordEncoder.swift in Sources */,
 				A4387BD123497EC900046A9E /* ViewController.swift in Sources */,
 				A4387BCD23497EC900046A9E /* AppDelegate.swift in Sources */,
-				A4387BCF23497EC900046A9E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -435,6 +451,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M6V22YXC3U;
 				INFOPLIST_FILE = AVtest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M6V22YXC3U;
 				INFOPLIST_FILE = AVtest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
