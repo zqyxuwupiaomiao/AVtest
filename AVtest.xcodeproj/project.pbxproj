@@ -17,6 +17,9 @@
 		A4387BFD2349833C00046A9E /* AVManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387BFC2349833C00046A9E /* AVManager.swift */; };
 		A4387C3B2349C4E600046A9E /* RecordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387C3A2349C4E600046A9E /* RecordEncoder.swift */; };
 		A4387C3E2349F43800046A9E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4387C3D2349F43800046A9E /* MobileCoreServices.framework */; };
+		A4387C40234B262700046A9E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387C3F234B262700046A9E /* File.swift */; };
+		A4387C42234B290600046A9E /* VedioListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387C41234B290600046A9E /* VedioListViewController.swift */; };
+		A4387C44234C298000046A9E /* AuthorizedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4387C43234C298000046A9E /* AuthorizedManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		A4387BFC2349833C00046A9E /* AVManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVManager.swift; sourceTree = "<group>"; };
 		A4387C3A2349C4E600046A9E /* RecordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEncoder.swift; sourceTree = "<group>"; };
 		A4387C3D2349F43800046A9E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		A4387C3F234B262700046A9E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		A4387C41234B290600046A9E /* VedioListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VedioListViewController.swift; sourceTree = "<group>"; };
+		A4387C43234C298000046A9E /* AuthorizedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +113,11 @@
 			children = (
 				A4387BCC23497EC900046A9E /* AppDelegate.swift */,
 				A4387BD023497EC900046A9E /* ViewController.swift */,
+				A4387C41234B290600046A9E /* VedioListViewController.swift */,
 				A4387BFC2349833C00046A9E /* AVManager.swift */,
 				A4387C3A2349C4E600046A9E /* RecordEncoder.swift */,
+				A4387C43234C298000046A9E /* AuthorizedManager.swift */,
+				A4387C3F234B262700046A9E /* File.swift */,
 				A4387BD223497EC900046A9E /* Main.storyboard */,
 				A4387BD523497ECA00046A9E /* Assets.xcassets */,
 				A4387BD723497ECA00046A9E /* LaunchScreen.storyboard */,
@@ -274,6 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4387C44234C298000046A9E /* AuthorizedManager.swift in Sources */,
+				A4387C42234B290600046A9E /* VedioListViewController.swift in Sources */,
+				A4387C40234B262700046A9E /* File.swift in Sources */,
 				A4387BFD2349833C00046A9E /* AVManager.swift in Sources */,
 				A4387C3B2349C4E600046A9E /* RecordEncoder.swift in Sources */,
 				A4387BD123497EC900046A9E /* ViewController.swift in Sources */,
