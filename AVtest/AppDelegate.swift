@@ -19,6 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.red
         self.window?.rootViewController = nav
         self.window?.makeKeyAndVisible()
+                
+        AuthorizedManager.checkCameraAuthorize { result in
+            
+        }
+        
+        AuthorizedManager.checkRecodAuthorize { result in
+            
+        }
         return true
     }
 }

@@ -112,7 +112,6 @@ class RecordEncoder: NSObject {
     }
     
     func finishWithCompletionHandler(callBack: @escaping () -> Void) {
-        
-        writer.finishWriting(completionHandler: callBack)
+        self.writer.finishWriting(completionHandler: callBack)
     }
 }

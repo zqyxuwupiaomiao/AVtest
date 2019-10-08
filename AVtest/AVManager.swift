@@ -36,18 +36,15 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
     var lastAudio:CMTime!//记录上一次音频数据文件的CMTime
     var startTime:CMTime!//开始录制的时间
     var currentRecordTime:CGFloat = 0//当前录制时间
+    let maxRecordTime:CGFloat = 60//最长录制时间
 
     var isCapturing = false //正在录制
     var isPaused = false //是否暂停
     
-    var captureQueue = DispatchQueue(label: "com.captureQueue")
+    var captureQueue = DispatchQueue(label: "com.capture.thread")
     
     var currentPath:String?
-    
-    
-    let lock = NSLock()
-    
-    
+        
     init(view:UIView) {
         super.init()
         
@@ -56,10 +53,6 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         width = UInt32(view.bounds.size.width)
         height = UInt32(view.bounds.size.height)
         
-        let videoAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        if videoAuthStatus != .authorized {
-//            return
-        }
         //视频的输入
         if let device = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera,.builtInMicrophone,.builtInTelephotoCamera], mediaType: .video, position: .back).devices.first {
             if let input = try? AVCaptureDeviceInput(device: device) {
@@ -105,7 +98,7 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         
         self.captureSession.startRunning()
     }
-    
+    //MARK: 添加session
     func addCaptureSession() {
         self.captureSession = AVCaptureSession()
         if self.captureSession.canAddInput(self.aInput) {
@@ -130,16 +123,9 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         }
     }
     
-    func startUp() {
-        timeOffset = CMTimeMake(value: 0, timescale: 0)
-        self.isCapturing = true
-    }
-    
+    //MARK: <-----------音视频数据输出的代理方法----------->
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         var isVideo = true
-        
-        objc_sync_enter(lock)
-        
         if (!self.isCapturing  || self.isPaused) {
             return
         }
@@ -155,7 +141,7 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
                     channels = asbd.pointee.mChannelsPerFrame
                 }
             }
-            self.currentPath = getVideoCachePath().appending("/video.mp4")
+            self.currentPath = getVideoCachePath().appending("/" + getCurrenFileName())
             self.recordEncoder = RecordEncoder(path: self.currentPath!, height: height, width: width, channels: channels, samples: samplerate)
         }
         var sampleBuffer = sampleBuffer
@@ -174,7 +160,6 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         }else {
             lastAudio = pts;
         }
-        objc_sync_exit(lock)
         
         let dur1 = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         if (self.startTime.value == 0) {
@@ -183,46 +168,13 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         
         let sub = CMTimeSubtract(dur, self.startTime)
         self.currentRecordTime = CGFloat(CMTimeGetSeconds(sub))
-
-        if self.currentRecordTime > 1000 {
+        if self.currentRecordTime > self.maxRecordTime {
             //最大录制时间
             return
         }
-        
         _ = self.recordEncoder?.encodeFrame(sampleBuffer: sampleBuffer, isVideo: isVideo)
-
     }
-    
-    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection){
-        
-    }
-    
-    func getVideoCachePath() -> String {
-        let videoCache = NSTemporaryDirectory().appending("videos")
-        let fileManager = FileManager.default;
-        let existed = fileManager.fileExists(atPath: videoCache)
-        if (!existed) {
-            try? fileManager.createDirectory(atPath: videoCache, withIntermediateDirectories: true, attributes: nil)
-        }
-        return videoCache;
-    }
-    
-    func shutdown() {
-        self.captureSession.stopRunning()
-        self.isCapturing = false
-        captureQueue.async {
-            self.recordEncoder?.finishWithCompletionHandler {
-                self.recordEncoder = nil
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: self.currentPath!))
-                }) { (result, erro) in
-                    
-                }
-            }
-
-        }
-    }
-    
+          
     func adjustTime(sample:CMSampleBuffer, offset:CMTime) -> CMSampleBuffer {
         
         let count = UnsafeMutablePointer<CMItemCount>.allocate(capacity: 1)
@@ -242,4 +194,54 @@ class AVManager: NSObject,AVCaptureAudioDataOutputSampleBufferDelegate,AVCapture
         return sout.pointee!
     }
     
+    //MARK: 开始录制
+    func startUp() {
+        timeOffset = CMTimeMake(value: 0, timescale: 0)
+        self.isCapturing = true
+        self.isPaused = false
+    }
+    
+    //MARK: 关闭录制并保存
+    func shutdown() {
+        if self.captureSession != nil {
+            self.captureSession.stopRunning()
+        }
+        captureQueue.async {
+            self.recordEncoder?.finishWithCompletionHandler {
+                self.isCapturing = false
+                self.recordEncoder = nil
+                //保存到相册
+                AuthorizedManager.checkPhotoAuthorize { result in
+                    if result {
+                        PHPhotoLibrary.shared().performChanges({
+                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: self.currentPath!))
+                        }) { (result, erro) in
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //MARK: 暂停录制
+    func pauseCapture() {
+        if self.isCapturing {
+            self.isPaused = true
+        }
+    }
+    
+    //MARK: 继续录制
+    func resumeCapture() {
+        if (self.isPaused) {
+            self.isPaused = false
+        }
+    }
+    
+    //MARK: 获取当前文件夹名字
+    func getCurrenFileName() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: Date()) + "video.mp4"
+    }
 }
